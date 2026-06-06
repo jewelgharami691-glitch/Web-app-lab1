@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Project Studio Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Project Prototype Hub</h1>
+        <p>Track and manage your web application ideas</p>
+    </header>
+
+    <main class="container">
+        <section class="form-section">
+            <h2>Add New Project</h2>
+            <form id="projectForm">
+                <div class="form-group">
+                    <label for="projectName">Project Title:</label>
+                    <input type="text" id="projectName" placeholder="e.g., E-Commerce Platform">
+                    <small class="error-msg" id="nameError"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectTech">Core Technology:</label>
+                    <select id="projectTech">
+                        <option value="">-- Select Technology --</option>
+                        <option value="React">React Node Ecosystem</option>
+                        <option value="Vanilla JS">Vanilla JavaScript</option>
+                        <option value="NextJS">Next.js Framework</option>
+                    </select>
+                    <small class="error-msg" id="techError"></small>
+                </div>
+
+                <button type="submit" id="submitBtn">Register Project</button>
+            </form>
+        </section>
+
+        <section class="table-section">
+            <h2>Submitted Prototypes</h2>
+            <div class="table-responsive">
+                <table id="projectTable">
+                    <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Technology</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td>Example Seed Project</td>
+                            <td>Vanilla JS</td>
+                            <td><span class="status-badge">Active</span></td>
+                            <td><button class="delete-btn-example" disabled>System</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
