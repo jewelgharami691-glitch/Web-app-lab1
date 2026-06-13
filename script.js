@@ -1,12 +1,14 @@
 // 1. Element Selectors
+const studentIdInput = document.getElementById("studentId");
 const projectForm = document.getElementById('projectForm');
 const projectNameInput = document.getElementById('projectName');
-const projectTechSelect = document.getElementById('projectTech');
+const projectTechInput = document.getElementById("projectTech");
 const tableBody = document.getElementById('tableBody');
 
 // Error Selectors
 const nameError = document.getElementById('nameError');
 const techError = document.getElementById('techError');
+const idError = document.getElementById("idError");
 
 // 2. Event Listener for Form Submission
 projectForm.addEventListener('submit', function (event) {
@@ -14,12 +16,21 @@ projectForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
     // Fetch values and clear whitespace trailing ends
+    const studentIdValue = studentIdInput.value.trim();
     const nameValue = projectNameInput.value.trim();
-    const techValue = projectTechSelect.value;
+    const techValue = projectTechInput.value.trim();
 
     let isValid = true;
 
     // 3. Form Validation Logic
+  if (studentIdValue === "") {
+    idError.textContent = "Student ID is required!";
+    isValid = false;
+}
+else if (!/^[0-9-]+$/.test(studentIdValue)) {
+    idError.textContent = "Invalid Student ID format!";
+    isValid = false;
+}
     if (nameValue === '') {
         nameError.textContent = 'Project Title is required.';
         isValid = false;
@@ -27,16 +38,17 @@ projectForm.addEventListener('submit', function (event) {
         nameError.textContent = '';
     }
 
-    if (techValue === '') {
-        techError.textContent = 'Please select a core technology platform.';
-        isValid = false;
-    } else {
+    if (techValue === "") {
+    techError.textContent = "Please enter a technology!";
+    isValid = false;
+    }
+     else {
         techError.textContent = '';
     }
 
     // 4. DOM Manipulation: If Valid, Add to Table View
     if (isValid) {
-        addProjectToTable(nameValue, techValue);
+       addProjectToTable(nameValue, techValue, studentIdValue);
         
         // Form Reset utility
         projectForm.reset();
@@ -44,11 +56,14 @@ projectForm.addEventListener('submit', function (event) {
 });
 
 // 5. Function to dynamically build and insert structural elements
-function addProjectToTable(name, tech) {
+function addProjectToTable(name, tech, studentId) {
     // Create container row element
     const row = document.createElement('tr');
 
     // Create custom structural columns
+    const idCell = document.createElement("td");
+     idCell.textContent = studentId;
+
     const nameCell = document.createElement('td');
     nameCell.textContent = name;
 
@@ -71,6 +86,7 @@ function addProjectToTable(name, tech) {
     actionCell.appendChild(deleteBtn);
 
     // Append table record elements explicitly to the wrapper row container
+    row.appendChild(idCell);
     row.appendChild(nameCell);
     row.appendChild(techCell);
     row.appendChild(statusCell);
